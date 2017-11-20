@@ -78,7 +78,7 @@ vocab_size = len(vocab) + 1
 print(vocab_size)
 
 word2idx = dict((w, i+1) for i, w in enumerate(vocab))
-pickle.dump((word2idx, content_length, question_length, vocab_size), open('vocab_data', 'wb'))
+pickle.dump((word2idx, content_length, question_length, vocab_size), open('vocab.data', 'wb'))
 
 # 补齐
 def pad_sequences(sequences, maxlen=None, dtype='int32', padding='post', truncating='post', value=0.):
@@ -123,7 +123,7 @@ def pad_sequences(sequences, maxlen=None, dtype='int32', padding='post', truncat
 
 # 转为向量
 def to_vector(data_file, output_file):
-    word2idx, content_length, question_length, _ = pickle.load(open('vocab.data', 'wb'))
+    word2idx, content_length, question_length, _ = pickle.load(open('vocab.data', 'rb'))
 
     X = []
     Q = []
