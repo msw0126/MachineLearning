@@ -13,8 +13,8 @@ import itertools
 import pickle
 import numpy as np
 
-train_data_file = 'D:\dataset\MachineLearning\DeepLearning\EXAMPLES\data\cbtest_NE_train.txt'
-valid_data_file = 'D:\dataset\MachineLearning\DeepLearning\EXAMPLES\data\cbtest_NE_valid_2000ex.txt'
+train_data_file = 'D://build_code\MachineLearning\DeepLearning\EXAMPLES\data\cbtest_NE_train.txt'
+valid_data_file = 'D://build_code\MachineLearning\DeepLearning\EXAMPLES\data\cbtest_NE_valid_2000ex.txt'
 
 def preprocess_data(data_file, out_file):
     stories = []
