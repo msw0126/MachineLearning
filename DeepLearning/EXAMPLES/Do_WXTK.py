@@ -91,9 +91,17 @@ def neural_attention(embedding_dim=384, encoding_dim=128):
                                                                      swap_memory=True)
             encoded_Q = tf.concat(2, outputs)
 
-        W_q = tf.Variable(tf.random_normal([2 * encoding_dim, 4 * encoding_dim], stddev=0.22), dtype=tf.float32)
-        b_q = tf.Variable(tf.random_normal([2 * encoding_dim, 1], stddev=0.22), dtype=tf.float32)
-        W_d = tf.Variable(tf.random_normal([2 * encoding_dim, 6 * encoding_dim], stddev=0.22), dtype=tf.float32)
-        b_d = tf.Variable(tf.random_normal([2 * encoding_dim, 1], stddev=0.22), dtype=tf.float32)
-        g_q = tf.Variable(tf.random_normal([10 * encoding_dim, 2 * encoding_dim], stddev=0.22), dtype=tf.float32)
-        g_d = tf.Variable(tf.random_normal([10 * encoding_dim, 2 * encoding_dim], stddev=0.22), dtype=tf.float32)
+    W_q = tf.Variable(tf.random_normal([2 * encoding_dim, 4 * encoding_dim], stddev=0.22), dtype=tf.float32)
+    b_q = tf.Variable(tf.random_normal([2 * encoding_dim, 1], stddev=0.22), dtype=tf.float32)
+    W_d = tf.Variable(tf.random_normal([2 * encoding_dim, 6 * encoding_dim], stddev=0.22), dtype=tf.float32)
+    b_d = tf.Variable(tf.random_normal([2 * encoding_dim, 1], stddev=0.22), dtype=tf.float32)
+    g_q = tf.Variable(tf.random_normal([10 * encoding_dim, 2 * encoding_dim], stddev=0.22), dtype=tf.float32)
+    g_d = tf.Variable(tf.random_normal([10 * encoding_dim, 2 * encoding_dim], stddev=0.22), dtype=tf.float32)
+
+    with tf.variable_scope('attend') as scope:
+        infer_gru = tf.nn.rnn_cell.GRUCell(4*encoding_dim)
+        infer_state = infer_gru.zero_state(batch_size, tf.float32)
+        for iter_step in range(8):
+            if iter_step > 0:
+                scope.reuse_variables()
+
