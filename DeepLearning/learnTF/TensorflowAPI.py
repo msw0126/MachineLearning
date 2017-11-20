@@ -293,3 +293,5 @@ import numpy as np
 
 
 # tf.gather(params,indices, validate_indices=None, name=None)合并索引所指示params中的切片
+
+# 32, tf.nn.bidirectional_dynamic_rnn()
