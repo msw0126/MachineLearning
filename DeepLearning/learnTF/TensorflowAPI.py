@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
 
+print('>>>',tf.__version__)   # 打印Tensorflow的版本号
+
 '''
    该类记录Tensorflow主要的方法和函数
    参见博客：http://blog.csdn.net/lenbow/article/details/52218551
