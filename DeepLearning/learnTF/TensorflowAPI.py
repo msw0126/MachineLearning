@@ -98,9 +98,11 @@ import numpy as np
 
 # 11,tf.concat(axis,[list1,list2]) 用于合并两个迭代器(比如列表)。axis表示合并的方向。0表示竖直，1表示水平
 # t1 = [[1,2,3],[4,5,6]]
-# t2 = [[7,8,9],[10,11,12]]
-# print(tf.Session().run(tf.concat(0,[t1,t2])))
-# print(tf.Session().run(tf.concat(1,[t1,t2])))
+# t2 = [[7,8,9,10],[10,11,12,12]]
+# x = tf.constant([[1,2,3], [4,5,6],[2,2,2]])
+# y = tf.constant([[7,8,9],[11,12,13], [3,3,3]])
+# print(tf.Session().run(tf.concat(0,[x,y])))
+# print(tf.Session().run(tf.concat(1,[x,y])))
 
 # 11,assert用于断言，也就是判断下一个表达式的对错，或者是一数字或者布尔类型的数据。如果是对的，那就继续执行下面程序，反正出现断言错误的标记，AssertionError
 
