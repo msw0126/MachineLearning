@@ -1,4 +1,4 @@
-# The GAN Zoo
+# The GANs
 
 <p align="center"><img width="40%" src="The_GAN_Zoo.jpg" /></p>
 
