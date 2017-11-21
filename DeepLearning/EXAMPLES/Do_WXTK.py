@@ -43,7 +43,7 @@ def get_next_batch():
         return get_next_batch()
 
 def get_text_batch():
-    with open('valid_data') as f:
+    with open(valid_data) as f:
         X = []
         Q = []
         A = []
@@ -80,7 +80,7 @@ def neural_attention(embedding_dim=384, encoding_dim=128):
             encoded_X = tf.nn.dropout(embedded_X, keep_prob)
             gru_cell = tf.nn.rnn_cell.GRUCell(embedding_dim)
             outputs, output_states = tf.nn.bidirectional_dynamic_rnn(gru_cell, gru_cell, embedded_X, sequence_length=X_lens, dtype=tf.float32, swap_memory=True)
-            encoded_X = tf.concat(2, outputs)
+            encoded_X = tf.concat(outputs, 2)
         with tf.variable_scope('Q'):
             Q_lens = tf.reduce_sum(tf.sign(tf.abs(Q)), 1)
             embedded_Q = tf.nn.embedding_lookup(embeddings, Q)
@@ -89,7 +89,7 @@ def neural_attention(embedding_dim=384, encoding_dim=128):
             outputs, output_states = tf.nn.bidirectional_dynamic_rnn(gru_cell, gru_cell, encoded_Q,
                                                                      sequence_length=Q_lens, dtype=tf.float32,
                                                                      swap_memory=True)
-            encoded_Q = tf.concat(2, outputs)
+            encoded_Q = tf.concat(outputs, 2)
 
     W_q = tf.Variable(tf.random_normal([2 * encoding_dim, 4 * encoding_dim], stddev=0.22), dtype=tf.float32)
     b_q = tf.Variable(tf.random_normal([2 * encoding_dim, 1], stddev=0.22), dtype=tf.float32)
