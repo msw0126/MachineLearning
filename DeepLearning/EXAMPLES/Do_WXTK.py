@@ -14,10 +14,10 @@ import ast
 from collections import defaultdict
 from tensorflow.contrib.layers.python.layers import regularizers
 
-train_data = 'train.vec'
-valid_data = 'valid.vec'
+train_data = 'D:\\build_code\MachineLearning\DeepLearning\EXAMPLES\data/train.vec'
+valid_data = 'D:\\build_code\MachineLearning\DeepLearning\EXAMPLES\data/valid.vec'
 
-word2idx, content_length, question_length, vocab_size = pickle.load(open('vocab.data', 'rb'))
+word2idx, content_length, question_length, vocab_size = pickle.load(open('D:\\build_code\MachineLearning\DeepLearning\EXAMPLES\data/vocab.data', 'rb'))
 print(content_length, question_length, vocab_size)
 
 batch_size = 64
@@ -104,4 +104,69 @@ def neural_attention(embedding_dim=384, encoding_dim=128):
         for iter_step in range(8):
             if iter_step > 0:
                 scope.reuse_variables()
+
+            _, q_glimpse = glimpse(W_q, b_q, encoded_Q, infer_state)
+            d_attention, d_glimpse = glimpse(W_d, b_d, encoded_X, tf.concat([infer_state, q_glimpse], 1))
+
+            gate_concat = tf.concat([infer_state, q_glimpse, d_glimpse, q_glimpse * d_glimpse], 1)
+
+            r_d = tf.sigmoid(tf.matmul(gate_concat, g_d))
+            r_d = tf.nn.dropout(r_d, keep_prob)
+            r_q = tf.sigmoid(tf.matmul(gate_concat, g_q))
+            r_q = tf.nn.dropout(r_q, keep_prob)
+
+            combined_gated_glimpse = tf.concat([r_q * q_glimpse, r_d * d_glimpse], 1)
+            _, infer_state = infer_gru(combined_gated_glimpse, infer_state)
+
+    return tf.to_float(tf.sign(tf.abs(X))) * d_attention
+
+
+def train_neural_attention():
+    X_attentions = neural_attention()
+    loss = -tf.reduce_mean(tf.log(tf.reduce_sum(tf.to_float(tf.equal(tf.expand_dims(A, -1), X) * X_attentions, 1) + tf.constant(0.00001))))
+
+    optimizer = tf.train.AdamOptimizer(learning_rate=0.001)
+    grads_and_vars = optimizer.compute_gradients(loss)
+    capped_grads_and_vars = [(tf.clip_by_norm(g, 5), v) for g, v in grads_and_vars]
+    train_op = optimizer.apply_gradients(capped_grads_and_vars)
+
+    saver = tf.train.Saver()
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+
+        # 恢复前一次训练
+        ckpt = tf.train.get_checkpoint_state('.')
+        if ckpt != None:
+            print(ckpt.model_checkpoint_path)
+            saver.restore(sess, ckpt.model_checkpoint_path)
+        else:
+            print("没找到模型")
+
+        for step in range(20000):
+            train_x, train_q, train_a = get_next_batch()
+            loss_, _ = sess.run([loss, train_op], feed_dict={X:train_x, Q:train_q, A:train_a, keep_prob:0.7})
+            print(loss_)
+
+            # 保存模型并计算准确率
+            if step % 1000 == 0:
+                path = saver.save(sess, 'machine_reading.model', global_step=step)
+                print(path)
+
+                test_x, test_q, test_a = get_text_batch()
+                test_x, test_q, test_a = np.array(test_x[:batch_size]), np.array(test_q[:batch_size]), np.array(test_a[:batch_size])
+                attentions = sess.run(X_attentions, feed_dict={X:test_x, Q:test_q, keep_prob:1.})
+                corrent_count = 0
+                for x in range(test_x.shape[0]):
+                    probs = defaultdict(int)
+                    for idx, word in enumerate(test_x[x,:]):
+                        probs[word] += attentions[x, idx]
+                    guess = max(probs, key=probs.get)
+                    if guess == test_a[x]:
+                        corrent_count += 1
+                print(corrent_count / test_x.shape[0])
+
+    pass
+
+
+train_neural_attention()
 
