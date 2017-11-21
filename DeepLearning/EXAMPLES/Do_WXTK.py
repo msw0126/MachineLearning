@@ -165,8 +165,5 @@ def train_neural_attention():
                         corrent_count += 1
                 print(corrent_count / test_x.shape[0])
 
-    pass
-
-
 train_neural_attention()
 
