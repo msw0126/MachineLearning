@@ -2,7 +2,7 @@
 """ 
 @author:charlesXu
 @file: EM.py 
-@desc: EM 算法实现1
+@desc: EM 算法实现
 @time: 2017/11/25 
 """
 
