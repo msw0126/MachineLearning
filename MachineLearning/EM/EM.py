@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 isdebug = True
 
 # 参考文献：机器学习TomM.Mitchell P.137
-#          李航 统计学习方法
+#          李航 统计学习方法EM算法章节
 # 代码参考http://blog.csdn.net/chasdmeng/article/details/38709063
 
 
