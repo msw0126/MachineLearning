@@ -122,3 +122,13 @@ import pylab
 # x = np.random.choice(10,4)
 # print(x)
 
+# 16, np.set_printoptions(precision=None, threshold=None, edgeitems=None, linewidth=None, suppress=None, nanstr=None, infstr=None, formatter=None)       设置打印选项，这些选项确定显示浮点数，数组和其他Numpy对象的方式
+#     参数:
+
+# 17, np.empty()   返回给定形状和类型的新数组，而不初始化条目
+#      参数:  shape   空数组的形状
+#            dtype:   数据类型
+#            order   C  F   是否在存储器中以行为主(C) 或列主(Fortran风格)顺序存储多维风格
+y = np.empty([2,2])
+print(y)
+
