@@ -129,6 +129,8 @@ import pylab
 #      参数:  shape   空数组的形状
 #            dtype:   数据类型
 #            order   C  F   是否在存储器中以行为主(C) 或列主(Fortran风格)顺序存储多维风格
-y = np.empty([2,2])
-print(y)
+# y = np.empty([2,2])
+# print(y)
 
+# 18 np.linspace()
+#    np.logspace()   样本均匀分布在对数空间中
