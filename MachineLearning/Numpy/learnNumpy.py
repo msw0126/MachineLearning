@@ -134,3 +134,8 @@ import pylab
 
 # 18 np.linspace()
 #    np.logspace()   样本均匀分布在对数空间中
+
+# 19 np.meshgrid()    返回网格矩阵
+
+# 20 np.stack(arrays, axis=0)   沿着新轴连接数组的序列， axis参数指定在结果尺寸中的索引，例如 axis=0,他将是第一个维度，
+#                                                                                       axis=-1,他将是最后一个维度
