@@ -139,3 +139,6 @@ import pylab
 
 # 20 np.stack(arrays, axis=0)   沿着新轴连接数组的序列， axis参数指定在结果尺寸中的索引，例如 axis=0,他将是第一个维度，
 #                                                                                       axis=-1,他将是最后一个维度
+
+# 21 np.random.binomial(n,p,size=None)  从二项分布绘制样本
+#                        样本从具有指定参数，n个实验和p成功概率的二项分布中得到，其中n是>=0的整数，p在[0,1]之间（n可以作为float输入，但在使用中被截断为整数）
