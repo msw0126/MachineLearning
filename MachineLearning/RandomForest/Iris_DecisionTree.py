@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import pydotplus
-import cv
+# import c
 
 from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
@@ -36,7 +36,7 @@ from sklearn.pipeline import Pipeline
 #     print(data)
 
 def iris_type(s):
-    it = {'Iris-setosa': 0, 'Iris-versicolor': 1, 'Iris-virginica': 2}
+    it = {b'Iris-setosa': 0, b'Iris-versicolor': 1, b'Iris-virginica': 2}
     return it[s]
 
 
