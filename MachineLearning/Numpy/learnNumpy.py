@@ -142,3 +142,16 @@ import pylab
 
 # 21 np.random.binomial(n,p,size=None)  从二项分布绘制样本
 #                        样本从具有指定参数，n个实验和p成功概率的二项分布中得到，其中n是>=0的整数，p在[0,1]之间（n可以作为float输入，但在使用中被截断为整数）
+
+# 22 np.split(ary, indices_or_sections, axis=0) 将数组拆分为多个子数组， 相关的方法： indices_or_sections如果是一个数组，则按数组的索引切分
+#    array_split   将数组拆分成等于或接近相等大小的多个子数组，如果不能进行等分，不会引发异常
+#    hsplit   水平(逐列)将数组拆分成多个子数组
+#    vsplit   垂直
+#    dsplit   将数组沿着第3轴(深度)拆分成多个子数组
+#  ==========
+#  concatenate  沿现有轴连烈数组序列
+#  stack  沿着新轴连接数组的序列        hstack    vstack    dstack
+x = np.arange(9.0)
+y = np.split(x, [4,8])
+print(x, y)
+
