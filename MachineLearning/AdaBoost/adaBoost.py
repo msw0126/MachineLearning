@@ -3,7 +3,7 @@
 
 from __future__ import division
 import numpy as np
-from MachineLearning.adaBoost.weakclassify import WEAKC
+from MachineLearning.AdaBoost.weakclassify import WEAKC
 from MachineLearning.utils import sign
 
 class ADABC:
