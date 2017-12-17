@@ -1,7 +1,7 @@
 #-*- coding:utf-8 _*-  
 """ 
 @author:charlesXu
-@file: cifar10.py 
+@file: Cifar10.py
 @desc: 数据处理
 @time: 2017/10/18 
 """
