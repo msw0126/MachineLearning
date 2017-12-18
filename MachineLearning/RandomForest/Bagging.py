@@ -27,7 +27,7 @@ if __name__=='__main__':
     y = f(x) + 0.05 * np.random.randn(N)
     x.shape = -1, 1
 
-    ridge = RidgeCV(alphas=np.logspace(-3, 2, 10), fit_intercept=False)
+    ridge = RidgeCV(alphas=np.logspace(-3, 2, 10), fit_intercept=False)  #
     ridged = Pipeline([('poly', PolynomialFeatures(degree=10)), ('Ridge', ridge)])
     bagging_ridged = BaggingRegressor(ridged, n_estimators=100, max_samples=0.3)
     dtr = DecisionTreeRegressor(max_depth=5)
