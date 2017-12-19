@@ -5,6 +5,9 @@
 @desc: GBDT数据预处理
 @time: 2017/12/19 
 """
+import theano
+import keras
+import tensorflow
 
 class DataSet:
     '''
