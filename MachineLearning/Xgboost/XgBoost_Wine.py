@@ -25,10 +25,10 @@ if __name__=='__main__':
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1, test_size=0.5)
 
     # Logistic回归
-    # lr = LogisticRegression(penalty='l2')
-    # lr.fit(x_train, y_train.ravel())
-    # y_hat = lr.predict(x_test)
-    # show_accuracy(y_hat, y_test, 'Logistic回归')
+    lr = LogisticRegression(penalty='l2')
+    lr.fit(x_train, y_train.ravel())
+    y_hat = lr.predict(x_test)
+    show_accuracy(y_hat, y_test, 'Logistic回归')
 
     # XgBoost
     y_train[y_train == 3] = 0
