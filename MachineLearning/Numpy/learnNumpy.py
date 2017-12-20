@@ -151,7 +151,8 @@ import pylab
 #  ==========
 #  concatenate  沿现有轴连烈数组序列
 #  stack  沿着新轴连接数组的序列        hstack    vstack    dstack
-x = np.arange(9.0)
-y = np.split(x, [4,8])
-print(x, y)
+# x = np.arange(9.0)
+# y = np.split(x, [4,8])
+# print(x, y)
 
+# 23 np.eye(N, M=None, k=0, dtype=<type 'float'>)  返回一个2-D数组, k是对角线索引
