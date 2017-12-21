@@ -112,7 +112,7 @@ if __name__=='__main__':
     plt.ylim((x2_min, x2_max))
     plt.grid(True)
 
-    plt.tight_layout(2)
+    plt.tight_layout(2)     # 边不要太远
     plt.suptitle(u'数据分布对KMeans聚类的影响', fontsize=18)
     # https://github.com/matplotlib/matplotlib/issues/829
     plt.subplots_adjust(top=0.92)
