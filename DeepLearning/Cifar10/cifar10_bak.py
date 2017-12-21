@@ -60,9 +60,15 @@ class Cifar10Dataset(object):
         filenames = self.get_filenames()
 
         # Repeat records
-        # dataset = tf.contrib.
-
-        dataset = dataset.map
+        '''
+         TextLineDataset: 从文本文件中读取各行内容
+         TFRecordDataset: 从TfRecord文件中读取记录
+         FixedLengthRecordDataset: 从二进制文件中读取固定大小的记录
+        '''
+        from tensorflow.contrib.data.python.ops import dataset_ops
+        dataset = dataset_ops.TFRecordDataset(filenames).repeat()
+        dataset = dataset.map(self.parser)
+    #
     def preprocess(self, image):
         '''
          预处理
