@@ -11,11 +11,16 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 
+'''
+   GaussianNB: 高斯朴素贝叶斯
+   MultinomialNB: 多项式朴素贝叶斯
+   BernoulliNB: 伯努利朴素贝叶斯
+'''
 
 def iris_type(s):
     it = {b'Iris-setosa': 0, b'Iris-versicolor': 1, b'Iris-virginica': 2}
@@ -36,6 +41,7 @@ if __name__=='__main__':
     ])
     gnb = KNeighborsClassifier(n_neighbors=1).fit(x, y.ravel())
     gnb.fit(x, y.ravel())
+    # gnb.partial_fit(x, y.ravel())
 
     # 绘图
     N, M = 500, 500  # 横纵各采样多少个值
