@@ -151,7 +151,7 @@ import pylab
 #  ==========
 #  concatenate  沿现有轴连烈数组序列
 #  stack  沿着新轴连接数组的序列        hstack    vstack    dstack
-# x = np.arange(9.0)
+# x = np.arange(9.0)   在给定范围内返回均匀间隔的值
 # y = np.split(x, [4,8])
 # print(x, y)
 
