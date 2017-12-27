@@ -16,8 +16,8 @@ from pyspark import SparkContext
 from pyspark import SparkConf
 
 
-spark_path = 'D:\spark-2.2.1-bin-hadoop2.7'
-JAVA_HOME = 'D:\jdk1.8'
+spark_path = 'E:\spark-2.2.1-bin-hadoop2.7'
+JAVA_HOME = 'E:\devtools\jdk1.8'
 os.environ['JAVA_HOME'] = JAVA_HOME
 os.environ['SPARK_HOME'] = spark_path
 
@@ -29,9 +29,9 @@ sys.path.append(spark_path + '/python/lib/pyspark.zip')
 sys.path.append(spark_path + '/python/lib/py4j-0.10.4-src.zip')
 
 if __name__=='__main__':
-    if len(sys.argv) != 2:
-        print("Usage: wordcount <file>", file=sys.stderr)
-        exit(-1)
+    # if len(sys.argv) != 2:
+    #     print("Usage: wordcount <file>", file=sys.stderr)
+    #     exit(-1)
 
     # conf = SparkConf.setMaster('local').setAppName('WordCount')
     # sc = SparkContext(conf)
@@ -40,7 +40,7 @@ if __name__=='__main__':
     spark = SparkSession.builder\
                         .appName('pyWordCount')\
                         .getOrCreate()
-    lines = spark.read.text(sys.argv[1]).rdd.map(lambda r: r[0])
+    lines = spark.read.text(sys.argv[0]).rdd.map(lambda r: r[0])
     counts = lines.flatMap(lambda x: x.split(' '))\
                   .map(lambda x: (x, 1))\
                   .reduceByKey(add)
