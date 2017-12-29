@@ -57,7 +57,43 @@ def basic_df_example(spark):
 
     df.select('name').show()
 
+    # Select everybody, but increment the age by 1
+    df.select(df['name'], df['age'] + 1).show()
 
+    df.filter(df['age'] > 21).show()
+
+    # Count people by age
+    df.groupBy('age').count().show()
+
+    # Register the DataFrame as a SQL temporaryView
+    df.createOrReplaceTempView("people")
+
+    sqlDF = spark.sql("SELECT * FROM people")
+    sqlDF.show()
+
+    # Register the DataFrame as a global temporaryView
+    df.createGlobalTempView('people')
+    
+    spark.sql('SELECT * FROM global_temp.people')
+    
+    spark.newSession().sql('SELECT * FROM global_temp.people').show()
+
+
+def schema_inference_example(spark):
+    sc = spark.sparkContext
+
+    # 加载文本文件，并且把每行转换成一个Row
+    lines = sc.textFile('F:\project\MachineLearning\PythonSpark\Data\people.txt')
+    parts = lines.map(lambda l: l.split(","))
+    people = parts.map(lambda p: Row(name=p[0], age=int(p[1])))
+
+    # Infer the schema, and register the DataFrame as a table
+    schemaPeople = spark.createDataFrame(people)
+    schemaPeople.createOrReplaceTempView('people')
+
+    teenagers = spark.sql('SELECT name FROM people WHERE age >= 13 AND age <=21')
+
+    # teenNames = teenagers.rdd.map(lambda p: "Name:" + p.name).collect()
 
 
 if __name__ == "__main__":
@@ -69,11 +105,11 @@ if __name__ == "__main__":
             .set('spark.default.parallelism','40')\
             .set('spark.yarn.executor.memoryOverhead', '1000')
     spark = SparkSession.builder\
-                        .appName("Python Spark SQL basic xxample")\
-                        .config("spark.some.config.option", "some-value")\
+                        .appName("Python Spark SQL basic example")\
                         .getOrCreate()
 
 
     basic_df_example(spark)
+    schema_inference_example(spark)
     spark.stop()
 
