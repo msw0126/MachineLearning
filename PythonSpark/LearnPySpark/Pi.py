@@ -11,8 +11,10 @@ from random import random
 from operator import add
 
 from pyspark.sql import SparkSession
+from Util.Spark_config import SPARK_CONF
 
 if __name__=='__main__':
+    config = SPARK_CONF
     spark = SparkSession\
                .builder\
                .appName("PythonPi")\
