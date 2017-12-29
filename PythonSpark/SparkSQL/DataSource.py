@@ -23,4 +23,5 @@ if __name__ == '__main__':
                         .appName("Python Spark SQL datasource Example")\
                         .getOrCreate
     basic_datasource_example(spark)
+    spark.stop()
 
