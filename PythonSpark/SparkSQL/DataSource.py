@@ -14,7 +14,7 @@ from pyspark.sql import Row
 
 def basic_datasource_example(spark):
     df = spark.read.load('F:\project\MachineLearning\PythonSpark\Data\\users.parquet')
-    df.select("name", "favorate_color").write.save("namesAndFavColors.parquet")
+    df.select("name", "favorite_color").write.save("namesAndFavColors.parquet")
     df.write.partitionBy("favorite_color").format("paequet").save("namesPartByColor.parquet")
 
     df = spark.read.parquet('F:\project\MachineLearning\PythonSpark\Data\\users.parquet')
