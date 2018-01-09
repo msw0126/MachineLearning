@@ -1,7 +1,7 @@
 #-*- coding:utf-8 _*-  
 """ 
 @author:charlesXu
-@file: PCA.py 
+@file: PCA.py
 @desc: pca实现
 @time: 2018/01/09 
 """
