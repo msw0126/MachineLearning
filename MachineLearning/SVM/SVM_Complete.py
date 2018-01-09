@@ -151,12 +151,37 @@ def selectJ(i, oS, Ei):
                 Ej = Ek
         return maxK, Ej
     else:
-        # 如果是第一次循环，就随机选择一个
+        # 如果是第一次循环，就随机选择一个alpha的值
         j = selectJrand(i, oS.m)
 
+        # 求Ej误差
+        Ej = calcEk(oS, j)
+    return Ej, j
 
+def updateEk(oS, k):
+    '''
+       计算误差值并存入缓存中
+       在对alpha值进行优化之后会用到这个值
+    :param oS:
+    :param k: 某一列的行号
+    :return:
+    '''
+    Ek = clacEk(oS, k)
+    oS.eCache[k] = [1, Ek]
 
-
+def clipAlpha(aj, H, L):
+    '''
+      调整aj的值，使aj处于L <= aj <= H
+    :param aj: 目标值
+    :param H:  最大值
+    :param L:  最小值
+    :return: aj
+    '''
+    if aj > H:
+        aj = H
+    if L > aj:
+        aj = L
+    return aj
 
 def innerL(i, oS):
     '''
@@ -176,6 +201,38 @@ def innerL(i, oS):
     if ((oS.labelMat[i] * Ei < -oS.tol) and (os.alphas[i] < oS.C)) or ((oS.labelMat[i] * Ei > oS.tol) and (oS.alphas[i] > 0)):
         # 选择最大的误差对应的j进行优化，效果明显
         j, Ej = selectJ(i, oS, Ei)
+        alphaIold = oS.alphas[i].copy()
+        alphaJold = oS.alphas[j].copy()
+
+        # L 和 H用于将alphas[j]调整到 0-C之间。如果L==H，就不做任何改变，直接return 0
+        if (oS.labelMat[i] != oS.labelMat[j]):
+            L = max(0, oS.labelMat[j] - oS.labelMat[i])
+            H = min(oS.C, oS.C + oS.alphas[j] - oS.labelMat[i])
+        else:
+            L = max(0, oS.alphas[j] + oS.alphas[i] - oS.C)
+            H = min(oS.C, oS.alphas[j] + oS.alphas[i])
+        if L == H:
+            return 0
+
+        # eta是alphas[j]的最优修改值，如果eta==0,需要退出for循环的当前迭代过程
+        # 参考《统计学习方法》李航-P125~P128<序列最小最优化算法>
+        eta = 2.0 * oS.K[i, j] - oS.K[i, i] - oS.K[j, j]  # 更换核函数
+        if eta >= 0:
+            return 0
+
+        # 计算出一个新的alphas[j]的值
+        oS.alphas[j] -= oS.labelMat[j] * (Ei - Ej) / eta
+        # 使用辅助函数，以及L和H对其进行调整
+        oS.alphas[j] = clipAlpha(oS.alphas[j], H, L)
+        # 更新误差缓存
+        updateEk(oS, j)
+
+        # 检查 alphas[j]是否只是轻微的改变，如果是的话就退出for循环
+        if (abs(alphas[j] - alphaJold) < 0.00001):
+            return 0
+
+        # 然后alphas[i] 和 alphas[j] 同时改变，改变的大小一样，方向相反
+        oS.alphas[i] += oS.labelMat[j]
 
 
 
