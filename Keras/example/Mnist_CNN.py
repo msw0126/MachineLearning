@@ -48,7 +48,9 @@ print(x_test.shape[0], 'test samples')
 y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
-model = Sequential()
+# 惯序模型是多个网络层的线性堆叠，也就是"一条路走到黑"
+
+model = Sequential()   # 惯序模型   http://keras-cn.readthedocs.io/en/latest/getting_started/sequential_model/
 model.add(Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=input_shape))
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Dropout(0.25))
@@ -57,6 +59,11 @@ model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
+# 在训练模型之前，需要用compile来对学习过程进行配置，compile接受三个参数:
+# 优化器:optimizer:该参数可指定为已预定义的优化器名，如rmsprop, adagrad, 或Optimizer
+# 损失函数：该参数为模型试图最小化的目标函数
+# 指标列表metrics：对分类问题，我们一般将该类问题设为metrics=['accuracy'].指标可以是一个预定义指标的名字，也可以是一个用户定制的函数
+#                 指标函数应该返回单个张量，或一个完整的metric_name -> metric_value映射的字典。
 model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adadelta(),
                                                            metrics=['accuracy'])
 
