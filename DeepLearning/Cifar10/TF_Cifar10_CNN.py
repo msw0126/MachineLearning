@@ -44,6 +44,9 @@ label_holder = tf.placeholder(tf.int32, [batch_size])
 
 # 创建卷积层，注意LRN的理解
 # 使用 5x5的卷积核大小，3个颜色通道，64个卷积核
+# ==============
+# 卷积层对数据进行特征提取， 全连接层进行组合匹配
+
 weight1 = variable_with_weight_loss(shape=[5, 5, 3, 64],stddev=5e-2, w1=0.0)
 kernel1 = tf.nn.conv2d(image_holder, weight1, [1, 1, 1, 1], padding='SAME')
 bias1 = tf.Variable(tf.constant(0.0, shape=[64]))
