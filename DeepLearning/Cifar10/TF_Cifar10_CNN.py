@@ -14,7 +14,9 @@ import time
 import math
 
 from cifar10 import cifar10
-from cifar10 import cifar10_input
+# from cifar10 import cifar10_input
+from cifar10.cifar10_input import distorted_inputs
+from cifar10.cifar10_input import inputs
 from cifar10.cifar10 import maybe_download_and_extract
 
 max_steps = 3000
@@ -32,10 +34,10 @@ maybe_download_and_extract()   # 下载解压数据
 
 
 # 使用distorted_inputs 产生训练需要的数据，包括特征及其对应的label, 该方法做了数据增强
-images_train, labels_train = cifar10_input.distorted_inputs(data_dir=data_dir, batch_size=batch_size)
+images_train, labels_train = distorted_inputs(data_dir=data_dir, batch_size=batch_size)
 
 # cifar10_input.inputs() 生成测试数据
-image_test, labels_test = cifar10_input.inputs(eval_data=True, data_dir=data_dir, batch_size=batch_size)
+image_test, labels_test = inputs(eval_data=True, data_dir=data_dir, batch_size=batch_size)
 
 image_holder = tf.placeholder(tf.float32, [batch_size, 24, 24, 3]) # 3表示有RGB三种通道
 label_holder = tf.placeholder(tf.int32, [batch_size])
