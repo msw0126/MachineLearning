@@ -14,7 +14,7 @@ import tensorflow as tf
 from collections import namedtuple
 
 # 数据加载与预处理
-with open('anna.txt', 'r') as f:
+with open('F:\project\MachineLearning\DeepLearning\LSTM\data\\anna.txt', 'r') as f:
     text = f.read()
 vocab = set(text)
 vocab_to_int = {c: i for i, c in enumerate(vocab)}
