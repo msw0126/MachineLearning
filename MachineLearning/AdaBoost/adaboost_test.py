@@ -4,7 +4,7 @@ from __future__ import division
 import numpy as np
 import scipy as sp
 
-from MachineLearning.AdaBoost.adaBoost import ADABC
+from adaBoost import ADABC
 
 '''
  Example 0:
