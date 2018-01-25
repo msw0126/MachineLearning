@@ -33,7 +33,8 @@ class Solution(object):
                 return [d[target - num], i]
             d[num] = i
 
-    nums = [2, 7, 11, 15]
-    target = 9
-    twoSum(nums, target)
-    print(twoSum(nums,target))
+    #
+    if __name__=='__main__':
+        nums = [2, 7, 11, 15]
+        twoSum(nums, 9)
+        print()
