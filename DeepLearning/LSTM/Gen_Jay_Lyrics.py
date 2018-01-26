@@ -63,7 +63,7 @@ class DataGenerator():
         return self.id2char_dict[id]
 
     def save_metadata(self, file):
-        with open(file, 'w') as f:
+        with open(file, 'w', encoding='utf-8') as f:
             f.write('id\tchar\n')
             for i in range(self.vocab_size):
                 c = self.id2char(i)
