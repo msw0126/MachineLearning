@@ -6,9 +6,9 @@
 @license: Q_S_Y_Q 
 @file: Add_Two_Numbers.py
 @time: 2018/1/25 19:22
-@desc: Leetcode第二题
+@desc: Leetcode第二题,需要回头再看
 """
-
+from Cython.Compiler.ExprNodes import ListNode
 
 '''
 Example:
@@ -30,9 +30,14 @@ class Solution(object):
         :param l2:
         :return:
         '''
+        p = dummy = ListNode(-1)
+        carry = 0
+        while l1 or l2 or carry:
+            val = (l1 and l1.val or 0) + (l2 and l2.val or 0) + carry
+            carry = val / 10
+            p.next = ListNode(val % 10)
+            l1 = l1 and l1.next
+            l2 = l2 and l2.next
+            p = p.next
+        return dummy.next
 
-
-
-if __name__ == '__main__':
-    l1 = [2, 4, 3]
-    l2 = [5, 6, 4]
