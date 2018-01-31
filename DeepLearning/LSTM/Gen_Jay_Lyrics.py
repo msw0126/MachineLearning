@@ -381,11 +381,9 @@ def train(data, model, args):
                                                  feed_dict)
             if i % 10 == 0:
                 writer.add_summary(summary, global_step=i)
-                print('Step:{}/{}, training_loss:{:4f}'.format(i,
-                                                               max_iter, train_loss))
+                print('Step:{}/{}, training_loss:{:4f}'.format(i, max_iter, train_loss))
             if i % 2000 == 0 or (i + 1) == max_iter:
-                saver.save(sess, os.path.join(
-                    args.log_dir, 'lyrics_model.ckpt'), global_step=i)
+                saver.save(sess, os.path.join(args.log_dir, 'lyrics_model.ckpt'), global_step=i)
 def sample(data, model, args):
     saver = tf.train.Saver()
     with tf.Session() as sess:
