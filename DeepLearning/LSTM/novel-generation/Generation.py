@@ -70,7 +70,7 @@ helper.preprocess_and_save_data(''.join(lines_of_text), token_lookup, create_loo
 int_text, vocab_to_int, int_to_vocab, token_dict = helper.load_preprocess()
 
 # 训练循环次数
-num_epochs = 100
+num_epochs = 10
 
 # batch大小
 batch_size = 256
@@ -112,7 +112,7 @@ def get_init_cell(batch_size, rnn_size):
 
     # 创建包含rnn_size个神经元的lstm cell
     cell = tf.contrib.rnn.BasicLSTMCell(rnn_size)
-
+    
     # 使用dropout机制防止overfitting等
     drop = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=keep_prob)
 
@@ -270,19 +270,24 @@ def pick_word(probabilities, int_to_vocab):
     chances = []
 
     for idx, prob in enumerate(probabilities):
-        if prob >= 0.05:
-                chances.append(int_to_vocab[idx])
+        if prob >= 0.00005:
+            chances.append(int_to_vocab[idx])
 
     rand = np.random.randint(0, len(chances))
 
     return str(chances[rand])
 
+    # num_word = np.random.choice(len(int_to_vocab), p=probabilities)
+
+    # return int_to_vocab[num_word]
+
+
 
 # 生成文本的长度
-gen_length = 5000
+gen_length = 500
 
 # 文章开头的字，指定一个即可，这个字必须是在训练词汇列表中的
-prime_word = '章'
+prime_word = '我'
 
 loaded_graph = tf.Graph()
 with tf.Session(graph=loaded_graph) as sess:
