@@ -16,3 +16,12 @@ import pandas as pd
 #                           delimiter: 定界符,备选分隔符(如果指定该参数，则sep参数失效)
 #                           quoting: 控制csv中的引号常量
 #                           doublequoting: 双引号，当单引号已经被定义，并且quoting参数不是QUOTE_NONE的时候，使用双引号表示引号内的一个元素作为一个元素使用。
+#
+# 2, pd.get_dummies(data, prefix=None, prefix_sep='_', dummy_na=False, columns=None, sparse=False, drop_first=False)
+#       将分类变量转换为虚拟/指示符变量
+# 参数说明: data: array-like，Series或DataFrame
+x = pd.Series(list('abcdb'))
+df = pd.DataFrame({'A': ['a','b','c'], 'B': ['b','a','c'], 'C':[1,2,3]})
+y = pd.get_dummies(x)
+y1 = pd.get_dummies(df, prefix=['col1', 'col2'])
+print(y1)
