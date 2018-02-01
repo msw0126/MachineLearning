@@ -34,6 +34,19 @@ class Solution(object):
         :rtype: str
         """
         first = '1' #将第一个数转换成字符串
+        for i in range(n-1):  # 第一行不需要读
+            a, c, count = first[0], '', 0 # a用来读取上一行的第一个字符，c用来存储，count用来统计
+            for j in first:
+                if a == j:
+                    count += 1
+                else:
+                    c += str(count) + a
+                    a = j
+                    count = 1
+            c += str(count) + a
+            first = c
+        return first
+
 
 
 
