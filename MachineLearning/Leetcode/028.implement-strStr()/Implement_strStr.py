@@ -27,6 +27,20 @@ class Solution(object):
         :type needle: str
         :rtype: int
         """
+        if len(haystack) == len(needle):
+            if haystack == needle:
+                return 0
+            else:
+                return -1
+        for i in range(len(haystack)):
+            k = i
+            j = 0
+            while j < len(needle) and k < len(haystack) and haystack[k] == needle[j]:
+                k += 1
+                j += 1
+            if j == len(needle):
+                return i
+        return -1 if needle else 0  # ?
 
 if __name__ == '__main__':
     pass
