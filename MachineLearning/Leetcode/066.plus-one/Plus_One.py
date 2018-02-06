@@ -29,7 +29,7 @@ class Solution(object):
             carry = 1 if digit < digits[i] else 0    # 很精妙
             digits[i] = digit
         if carry == 1:
-            return [i] + digits
+            return [1] + digits
         return digits
 
 
