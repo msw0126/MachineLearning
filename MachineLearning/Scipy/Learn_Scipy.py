@@ -19,8 +19,11 @@ from scipy.sparse import coo_matrix
      http://python.usyiyi.cn/translate/scipy_lecture_notes/index.html
 '''
 # 1,稀疏矩阵
-# 创建coo矩阵
+# 创建coo矩阵  协调格式
 mtx = coo_matrix((3, 4), dtype=np.int8)
 dense = mtx.todense()
 print(dense)
 
+# CSR 压缩稀疏行格式
+
+# CSC 压缩稀疏列格式
