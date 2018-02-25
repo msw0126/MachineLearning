@@ -5,6 +5,10 @@
 @desc: sklearn学习笔记
 @time: 2017/12/12 
 """
+'''
+  sklearn文档:
+      http://cwiki.apachecn.org/pages/viewpage.action?pageId=10030193
+'''
 
 from sklearn import datasets
 import numpy as np

@@ -157,10 +157,14 @@ import pylab
 
 # 23 np.eye(N, M=None, k=0, dtype=<type 'float'>)  返回一个2-D数组, k是对角线索引
 
-# np.unique() 查找数组的唯一元素。
+# 24 np.unique() 查找数组的唯一元素。
 #             返回数组的排序的唯一元素。除了唯一元素外，还有三个可选输出: 提供唯一值的输入数组的索引
 #                                                              重建输入数组的唯一数组的索引
 #                                                              以及输入数组中每个唯一值的出现次数
-x = np.unique([1,1,2,2,3,3,4,5,4])
-print(x)
+# x = np.unique([1,1,2,2,3,3,4,5,4])
+# print(x)
+
+# 25 np.copy()  返回给定对象的数组副本
+#   相当于 np.array(a, copy=True)
+
 
