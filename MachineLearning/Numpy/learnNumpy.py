@@ -167,4 +167,7 @@ import pylab
 # 25 np.copy()  返回给定对象的数组副本
 #   相当于 np.array(a, copy=True)
 
+# 26 np.expm1()  对数组中的所有元素计算 exp(x) - 1
+#    参考 log1p   log(1 + x)
+
 
