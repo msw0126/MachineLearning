@@ -35,3 +35,5 @@ import pandas as pd
 s = pd.Series(list('abca'))
 y = pd.get_dummies(s)
 print(y)
+
+pd.strftime()
