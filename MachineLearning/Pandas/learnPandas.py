@@ -32,8 +32,10 @@ import pandas as pd
 # print(x)
 
 # pd.get_dummies()  将分类变量转换为虚拟/指示符变量
-s = pd.Series(list('abca'))
-y = pd.get_dummies(s)
-print(y)
+# s = pd.Series(list('abca'))
+# y = pd.get_dummies(s)
+# print(y)
+#
+# pd.strftime()
 
-pd.strftime()
+# pd.DateOffset
