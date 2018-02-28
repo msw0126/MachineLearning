@@ -27,6 +27,15 @@ import pandas as pd
 # print(y1)
 
 # pd.to_datetime(*args, **kwargs)  将参数转换为datetime
-df = pd.DataFrame({'year':[2015, 2016], 'month':[2,4], 'day':[4,5]})
-x = pd.to_datetime(df.split())
-print(x)
+# df = pd.DataFrame({'year':[2015, 2016], 'month':[2,4], 'day':[4,5]})
+# x = pd.to_datetime(df.split())
+# print(x)
+
+# pd.get_dummies()  将分类变量转换为虚拟/指示符变量
+# s = pd.Series(list('abca'))
+# y = pd.get_dummies(s)
+# print(y)
+#
+# pd.strftime()
+
+# pd.DateOffset
