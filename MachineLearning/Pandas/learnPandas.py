@@ -39,3 +39,10 @@ import pandas as pd
 # pd.strftime()
 
 # pd.DateOffset
+
+# python pandas.DataFrame选取、修改数据最好用.loc，.iloc，.ix
+df = pd.DataFrame(np.arange(0, 60, 2).reshape(10, 3), columns=list('abc'))
+df.loc[0, 'a']
+# print(df.loc[0, 'a'])
+# print(df.loc[0:3, ['a', 'b']])
+print(df.loc[[1, 5], ['b', 'c']])
