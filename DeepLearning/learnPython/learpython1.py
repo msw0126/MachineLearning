@@ -7,7 +7,7 @@
 """
 import pprint
 import redis
-import tensorflow as a
+import pprint
 # from __future__ import division
 
 from unittest import result
@@ -31,5 +31,17 @@ fdsfsdfsfsfsdfsdfdsfsdfsdfds
 
 # dict = {}
 # print(dict)
+
+file = open('E:\py_workspace\MachineLearning\DeepLearning\Data\sensitive.txt', 'r', encoding='utf-8')
+
+files = open('E:\py_workspace\MachineLearning\DeepLearning\Data\sensitives.txt', 'w')
+for line in file.readlines():
+    word = line.strip().split("\t")[-1]
+    pprint.pprint(word)
+    files.write(word + '\n')
+files.close()
+
+
+
 
 
