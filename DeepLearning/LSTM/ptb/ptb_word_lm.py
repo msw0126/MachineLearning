@@ -104,7 +104,7 @@ class PTBInput(object):
 
   def __init__(self, config, data, name=None):
     self.batch_size = batch_size = config.batch_size
-    self.num_steps = num_steps = config.num_steps
+    self.num_steps = num_steps = config.num_steps    # LSTM的展开步数
     self.epoch_size = ((len(data) // batch_size) - 1) // num_steps
     self.input_data, self.targets = reader.ptb_producer(
         data, batch_size, num_steps, name=name)
@@ -120,8 +120,8 @@ class PTBModel(object):
     self._cell = None
     self.batch_size = input_.batch_size
     self.num_steps = input_.num_steps
-    size = config.hidden_size
-    vocab_size = config.vocab_size
+    size = config.hidden_size   # LSTM的节点数
+    vocab_size = config.vocab_size # 词汇表大小
 
     with tf.device("/cpu:0"):
       embedding = tf.get_variable(
@@ -136,7 +136,7 @@ class PTBModel(object):
     softmax_w = tf.get_variable(
         "softmax_w", [size, vocab_size], dtype=data_type())
     softmax_b = tf.get_variable("softmax_b", [vocab_size], dtype=data_type())
-    logits = tf.nn.xw_plus_b(output, softmax_w, softmax_b)
+    logits = tf.nn.xw_plus_b(output, softmax_w, softmax_b)   # 相当于matmul(x, weights) + biases.
      # Reshape logits to be a 3-D tensor for sequence loss
     logits = tf.reshape(logits, [self.batch_size, self.num_steps, vocab_size])
 
@@ -157,12 +157,12 @@ class PTBModel(object):
 
     self._lr = tf.Variable(0.0, trainable=False)
     tvars = tf.trainable_variables()
-    grads, _ = tf.clip_by_global_norm(tf.gradients(self._cost, tvars),
-                                      config.max_grad_norm)
+    grads, _ = tf.clip_by_global_norm(tf.gradients(self._cost, tvars),  # 通过权重梯度的总和的比率来截取多个张量的值。
+                                      config.max_grad_norm)  # 设置梯度的最大范数max_grad_norm，控制梯度的最大范数可以起到正则化的效果。也可以防止梯度爆炸
     optimizer = tf.train.GradientDescentOptimizer(self._lr)
-    self._train_op = optimizer.apply_gradients(
+    self._train_op = optimizer.apply_gradients(       # 将前面clip过的梯度应用到所有可能训练的参数tvars上
         zip(grads, tvars),
-        global_step=tf.contrib.framework.get_or_create_global_step())
+        global_step=tf.contrib.framework.get_or_create_global_step())   # 生成全局的训练步数
 
     self._new_lr = tf.placeholder(
         tf.float32, shape=[], name="new_learning_rate")
@@ -218,10 +218,11 @@ class PTBModel(object):
       cell = tf.contrib.rnn.DropoutWrapper(
           cell, output_keep_prob=config.keep_prob)
 
+    # 堆叠
     cell = tf.contrib.rnn.MultiRNNCell(
         [cell for _ in range(config.num_layers)], state_is_tuple=True)
 
-    self._initial_state = cell.zero_state(config.batch_size, data_type())
+    self._initial_state = cell.zero_state(config.batch_size, data_type())  # 设置初始化状态为0
     state = self._initial_state
     # Simplified version of tensorflow_models/tutorials/rnn/rnn.py's rnn().
     # This builds an unrolled LSTM for tutorial purposes only.
@@ -235,10 +236,10 @@ class PTBModel(object):
     outputs = []
     with tf.variable_scope("RNN"):
       for time_step in range(self.num_steps):
-        if time_step > 0: tf.get_variable_scope().reuse_variables()
+        if time_step > 0: tf.get_variable_scope().reuse_variables() # 设置为复用变量
         (cell_output, state) = cell(inputs[:, time_step, :], state)
         outputs.append(cell_output)
-    output = tf.reshape(tf.concat(outputs, 1), [-1, config.hidden_size])
+    output = tf.reshape(tf.concat(outputs, 1), [-1, config.hidden_size])  # 转化为一个很长的一维向量
     return output, state
 
   def assign_lr(self, session, lr_value):
