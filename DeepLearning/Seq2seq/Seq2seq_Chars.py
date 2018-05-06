@@ -152,7 +152,7 @@ def decoding_layer(target_letter_to_int, decoding_embedding_size, num_layers, rn
     
     # 3,获得全连接层
     output_layer = tf.layers.dense(target_vocab_size,
-                         kernel_initializer = tf.truncated_normal_initializer(mean = 0.0, stddev=0.1))
+                         kernel_initializer = tf.truncated_normal_initializer(mean =0.0, stddev=0.1))
     
     # 4, Training decoder
     with tf.variable_scope('decode'):
