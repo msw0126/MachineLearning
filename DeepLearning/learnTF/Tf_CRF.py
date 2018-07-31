@@ -28,4 +28,4 @@ x = np.random.rand(num_examples, num_words, num_features).astype(np.float32)
 y = np.random.randint(num_tags, size=[num_examples, num_words]).astype(np.int32)
 
 # 序列的长度
-sequence_lenths = np.full()
+sequence_lenths = np.full(num_examples, num_words - 1, dtype=np.int32)
