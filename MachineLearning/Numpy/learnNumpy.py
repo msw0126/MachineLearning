@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-import pylab
+# import pylab
 
 
 '''
-  Numpy 官方文档 ：http://python.usyiyi.cn/translate/NumPy_v111/genindex.html
+  Numpy 官方文档 ：https://yiyibooks.cn/xx/NumPy_v111/genindex.html
 '''
 
 '''
@@ -171,6 +171,11 @@ import pylab
 #    参考 log1p   log(1 + x)
 
 # 27 np.percentile 沿指定轴计算数据的第q个百分位数 返回数组元素的第Q个百分位数
+
+# 28 np.full(shape, fill_value, dtype=None, order='C') 返回一个给定的维度和类型，值均已fill_value填充
+x = np.full((2,2), np.inf)
+y = np.full((2,2), 10, dtype=np.int)
+print(x, y)
 
 
 
