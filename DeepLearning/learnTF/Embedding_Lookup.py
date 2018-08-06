@@ -25,7 +25,7 @@ def test_embedding_lookup():
     b = tf.Variable(b)
     c = tf.Variable(c)
 
-    t = tf.nn.embedding_lookup([a,b,c], ids=[0,1,2,3])
+    t = tf.nn.embedding_lookup([a,b,c], ids=[1,3])
     init = tf.global_variables_initializer()
     sess = tf.Session()
     sess.run(init)
